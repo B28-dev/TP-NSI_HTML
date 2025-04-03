@@ -1,1 +1,150 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz NSI - Version Basique</title>
+  <meta charset="utf-8">
+</head>
+<body>
+  <h1>Quiz NSI - Version Basique</h1>
+  <button onclick="reinitialiser()">Remettre à zéro</button>
+  <!-- un formulaire qui contient la liste des questions -->
+  <form name="quiz">
+    <!-- Question 1 -->
+    <p>1. Quelle structure de données fonctionne selon le principe "premier entré, premier sorti" ?</p>
+    <input name="question1" type="radio" value="pile">Pile (stack)<br>
+    <input name="question1" type="radio" value="file">File (queue)<br>
+    <input name="question1" type="radio" value="arbre">Arbre binaire<br>
+    
+    <!-- Question 2 -->
+    <p>2. Comment appelle-t-on l'algorithme qui permet de trouver le plus court chemin dans un graphe pondéré ?</p>
+    <input id="question2"><br>
+    
+    <!-- Question 3 -->
+    <p>3. Quels sont les formats d'encodage d'images ?</p>
+    <input name="question3" type="checkbox" value="jpeg">JPEG<br>
+    <input name="question3" type="checkbox" value="mp3">MP3<br>
+    <input name="question3" type="checkbox" value="png">PNG<br>
+    
+    <!-- Question 4 -->
+    <p>4. En SQL, quelle commande permet de sélectionner des données dans une table ?</p>
+    <input name="question4" type="radio" value="insert">INSERT<br>
+    <input name="question4" type="radio" value="select">SELECT<br>
+    <input name="question4" type="radio" value="update">UPDATE<br>
+    
+    <!-- Question 5 -->
+    <p>5. Complétez la fonction Python qui calcule la factorielle d'un nombre :</p>
+    <pre>def factorielle(n):
+    if n <= 1:
+        return ___
+    else:
+        return n * factorielle(___)
+    </pre>
+    <input id="question5_1" placeholder="Premier blanc">
+    <input id="question5_2" placeholder="Deuxième blanc"><br>
+    
+    <!-- Question 6 -->
+    <p>6. Quels sont les principes de la programmation orientée objet ?</p>
+    <input name="question6" type="checkbox" value="encapsulation">Encapsulation<br>
+    <input name="question6" type="checkbox" value="heritage">Héritage<br>
+    <input name="question6" type="checkbox" value="compilation">Compilation<br>
+    <input name="question6" type="checkbox" value="polymorphisme">Polymorphisme<br>
+    
+    <!-- Question 7 -->
+    <p>7. Quelle est la complexité temporelle de l'algorithme de tri à bulles dans le pire des cas ?</p>
+    <input name="question7" type="radio" value="o1">O(1)<br>
+    <input name="question7" type="radio" value="ologn">O(log n)<br>
+    <input name="question7" type="radio" value="on">O(n)<br>
+    <input name="question7" type="radio" value="on2">O(n²)<br>
+    
+    <!-- Question 8 -->
+    <p>8. Dans le modèle TCP/IP, quel protocole est utilisé pour la navigation web ?</p>
+    <input id="question8"><br>
+  </form><br>
+  
+  <!-- L'indispensable bouton de validation pour déclencher la fonction de vérification -->
+  <button onclick="verifier()">Vérifier</button>
+  
+  <!-- La zone de bilan avec des phrases vides qui seront actualisées par la suite -->
+  <p id="appreciation">...</p>
+  <p id="nombre_justes">...</p>
+  
+  <script>
+    // Fonction pour réinitialiser la page
+    function reinitialiser() {
+      location.reload();
+    }
+    
+    // Fonction pour vérifier les réponses
+    function verifier(){
+      // On récupère les valeurs saisies
+      var question1 = document.quiz.question1.value;
+      var question2 = document.getElementById("question2").value;
+      var question3 = document.getElementsByName("question3");
+      var question4 = document.quiz.question4.value;
+      var question5_1 = document.getElementById("question5_1").value;
+      var question5_2 = document.getElementById("question5_2").value;
+      var question6 = document.getElementsByName("question6");
+      var question7 = document.quiz.question7.value;
+      var question8 = document.getElementById("question8").value;
+      
+      // On gère le score en fonction des réponses
+      var score = 0;
+      
+      // Question 1: une seule réponse correcte
+      if (question1 == "file"){
+        score += 1;
+      }
+      
+      // Question 2: champ texte
+      if (question2.toLowerCase() == "dijkstra" || question2.toLowerCase() == "algorithme de dijkstra"){
+        score += 1;
+      }
+      
+      // Question 3: plusieurs réponses correctes (cases à cocher)
+      if (question3[0].checked == true && question3[1].checked == false && question3[2].checked == true){
+        score += 1;
+      }
+      
+      // Question 4: une seule réponse correcte
+      if (question4 == "select"){
+        score += 1;
+      }
+      
+      // Question 5: deux champs texte
+      if (question5_1 == "1" && question5_2 == "n-1"){
+        score += 1;
+      }
+      
+      // Question 6: plusieurs réponses correctes (cases à cocher)
+      if (question6[0].checked == true && question6[1].checked == true && 
+          question6[2].checked == false && question6[3].checked == true){
+        score += 1;
+      }
+      
+      // Question 7: une seule réponse correcte
+      if (question7 == "on2"){
+        score += 1;
+      }
+      
+      // Question 8: champ texte
+      if (question8.toLowerCase() == "http" || question8.toLowerCase() == "https"){
+        score += 1;
+      }
+      
+      // On actualise l'appréciation
+      if (score < 3){
+        appreciation.textContent = "Décevant. Vous devriez réviser davantage.";
+      }
+      else if (score < 6){
+        appreciation.textContent = "Acceptable. Continuez vos efforts.";
+      }
+      else {
+        appreciation.textContent = "Bravo. Excellente maîtrise du sujet !";
+      }
+      
+      nombre_justes.textContent = "Vous avez " + score + " réponses correctes sur 8." ;
+    }
+  </script>
+</body>
+</html>
