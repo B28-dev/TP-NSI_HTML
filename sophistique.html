@@ -1,1 +1,390 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz NSI - Version Sophistiquée</title>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+    
+    #quiz {
+      background-color: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .question {
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .question p {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px 5px;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #2980b9;
+    }
+    
+    #reset {
+      background-color: #e74c3c;
+    }
+    
+    #reset:hover {
+      background-color: #c0392b;
+    }
+    
+    #hint {
+      background-color: #f39c12;
+    }
+    
+    #hint:hover {
+      background-color: #d35400;
+    }
+    
+    input[type="radio"], input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    
+    input[type="text"] {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-top: 5px;
+      width: 250px;
+    }
+    
+    #results {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    
+    .good-score {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .average-score {
+      background-color: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeeba;
+    }
+    
+    .bad-score {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .correct {
+      color: #28a745;
+      font-weight: bold;
+    }
+    
+    .incorrect {
+      color: #dc3545;
+      font-weight: bold;
+    }
+    
+    .correction {
+      display: none;
+      margin-top: 5px;
+      font-style: italic;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quiz NSI - Version Sophistiquée</h1>
+  
+  <div class="controls">
+    <button id="reset" onclick="reinitialiser()">Remettre à zéro</button>
+    <button id="hint" onclick="afficherIndices()">Afficher des indices</button>
+  </div>
+  
+  <!-- un formulaire qui contient la liste des questions -->
+  <form name="quiz" id="quiz">
+    <!-- Question 1 -->
+    <div class="question">
+      <p>1. Quelle structure de données fonctionne selon le principe "premier entré, premier sorti" ?</p>
+      <input name="question1" type="radio" value="pile">Pile (stack)<br>
+      <input name="question1" type="radio" value="file">File (queue)<br>
+      <input name="question1" type="radio" value="arbre">Arbre binaire<br>
+      <div id="correction1" class="correction">
+        Dans une file (queue), le premier élément ajouté est le premier à être retiré (FIFO).
+      </div>
+      <div id="indice1" class="correction">
+        Indice: Pensez à une file d'attente dans la vie réelle.
+      </div>
+    </div>
+    
+    <!-- Question 2 -->
+    <div class="question">
+      <p>2. Comment appelle-t-on l'algorithme qui permet de trouver le plus court chemin dans un graphe pondéré ?</p>
+      <input id="question2" type="text"><br>
+      <div id="correction2" class="correction">
+        L'algorithme de Dijkstra permet de déterminer le plus court chemin entre les nœuds d'un graphe pondéré.
+      </div>
+      <div id="indice2" class="correction">
+        Indice: C'est un algorithme inventé par Edsger W. Dijkstra.
+      </div>
+    </div>
+    
+    <!-- Question 3 -->
+    <div class="question">
+      <p>3. Quels sont les formats d'encodage d'images ?</p>
+      <input name="question3" type="checkbox" value="jpeg">JPEG<br>
+      <input name="question3" type="checkbox" value="mp3">MP3<br>
+      <input name="question3" type="checkbox" value="png">PNG<br>
+      <div id="correction3" class="correction">
+        JPEG et PNG sont des formats d'encodage d'images, tandis que MP3 est un format audio.
+      </div>
+      <div id="indice3" class="correction">
+        Indice: L'un des formats mentionnés est utilisé pour l'audio, pas pour les images.
+      </div>
+    </div>
+    
+    <!-- Question 4 -->
+    <div class="question">
+      <p>4. En SQL, quelle commande permet de sélectionner des données dans une table ?</p>
+      <input name="question4" type="radio" value="insert">INSERT<br>
+      <input name="question4" type="radio" value="select">SELECT<br>
+      <input name="question4" type="radio" value="update">UPDATE<br>
+      <div id="correction4" class="correction">
+        La commande SELECT permet de récupérer des données d'une ou plusieurs tables.
+      </div>
+      <div id="indice4" class="correction">
+        Indice: Cette commande est suivie de noms de colonnes et du mot-clé FROM.
+      </div>
+    </div>
+    
+    <!-- Question 5 -->
+    <div class="question">
+      <p>5. Complétez la fonction Python qui calcule la factorielle d'un nombre :</p>
+      <pre>def factorielle(n):
+    if n <= 1:
+        return ___
+    else:
+        return n * factorielle(___)
+      </pre>
+      <input id="question5_1" type="text" placeholder="Premier blanc">
+      <input id="question5_2" type="text" placeholder="Deuxième blanc"><br>
+      <div id="correction5" class="correction">
+        La factorielle de 1 ou 0 est 1, et la fonction récursive appelle factorielle(n-1).
+      </div>
+      <div id="indice5" class="correction">
+        Indice: Pour la récursion, on doit appeler la fonction avec un argument qui se rapproche du cas de base.
+      </div>
+    </div>
+    
+    <!-- Question 6 -->
+    <div class="question">
+      <p>6. Quels sont les principes de la programmation orientée objet ?</p>
+      <input name="question6" type="checkbox" value="encapsulation">Encapsulation<br>
+      <input name="question6" type="checkbox" value="heritage">Héritage<br>
+      <input name="question6" type="checkbox" value="compilation">Compilation<br>
+      <input name="question6" type="checkbox" value="polymorphisme">Polymorphisme<br>
+      <div id="correction6" class="correction">
+        Les principes fondamentaux de la POO sont l'encapsulation, l'héritage et le polymorphisme. La compilation est un processus indépendant.
+      </div>
+      <div id="indice6" class="correction">
+        Indice: Il y a trois principes fondamentaux. L'un des choix proposés concerne la traduction du code.
+      </div>
+    </div>
+    
+    <!-- Question 7 -->
+    <div class="question">
+      <p>7. Quelle est la complexité temporelle de l'algorithme de tri à bulles dans le pire des cas ?</p>
+      <input name="question7" type="radio" value="o1">O(1)<br>
+      <input name="question7" type="radio" value="ologn">O(log n)<br>
+      <input name="question7" type="radio" value="on">O(n)<br>
+      <input name="question7" type="radio" value="on2">O(n²)<br>
+      <div id="correction7" class="correction">
+        Le tri à bulles a une complexité temporelle de O(n²) dans le pire des cas car il utilise deux boucles imbriquées.
+      </div>
+      <div id="indice7" class="correction">
+        Indice: Pensez aux boucles imbriquées utilisées dans cet algorithme.
+      </div>
+    </div>
+    
+    <!-- Question 8 -->
+    <div class="question">
+      <p>8. Dans le modèle TCP/IP, quel protocole est utilisé pour la navigation web ?</p>
+      <input id="question8" type="text"><br>
+      <div id="correction8" class="correction">
+        HTTP (HyperText Transfer Protocol) est le protocole utilisé pour la navigation web.
+      </div>
+      <div id="indice8" class="correction">
+        Indice: C'est un protocole dont l'acronyme commence par "HT".
+      </div>
+    </div>
+  </form><br>
+  
+  <!-- L'indispensable bouton de validation pour déclencher la fonction de vérification -->
+  <button onclick="verifier()">Vérifier</button>
+  
+  <!-- La zone de bilan avec des phrases vides qui seront actualisées par la suite -->
+  <div id="results">
+    <p id="appreciation">...</p>
+    <p id="nombre_justes">...</p>
+    <div id="correction_details"></div>
+  </div>
+  
+  <script>
+    // Fonction pour réinitialiser la page
+    function reinitialiser() {
+      location.reload();
+    }
+    
+    // Fonction pour afficher les indices
+    function afficherIndices() {
+      var indices = document.querySelectorAll('[id^="indice"]');
+      indices.forEach(function(indice) {
+        indice.style.display = 'block';
+      });
+    }
+    
+    // Fonction pour vérifier les réponses
+    function verifier(){
+      // On récupère les valeurs saisies
+      var question1 = document.quiz.question1.value;
+      var question2 = document.getElementById("question2").value;
+      var question3 = document.getElementsByName("question3");
+      var question4 = document.quiz.question4.value;
+      var question5_1 = document.getElementById("question5_1").value;
+      var question5_2 = document.getElementById("question5_2").value;
+      var question6 = document.getElementsByName("question6");
+      var question7 = document.quiz.question7.value;
+      var question8 = document.getElementById("question8").value;
+      
+      // On gère le score en fonction des réponses
+      var score = 0;
+      var correctionsHtml = "<h3>Détails des réponses :</h3>";
+      
+      // Question 1
+      if (question1 == "file"){
+        score += 1;
+        correctionsHtml += "<p class='correct'>Question 1 : Correct ✓</p>";
+      } else {
+        correctionsHtml += "<p class='incorrect'>Question 1 : Incorrect ✗</p>";
+      }
+      document.getElementById("correction1").style.display = "block";
+      
+      // Question 2
+      if (question2.toLowerCase() == "dijkstra" || question2.toLowerCase() == "algorithme de dijkstra"){
+        score += 1;
+        correctionsHtml += "<p class='correct'>Question 2 : Correct ✓</p>";
+      } else {
+        correctionsHtml += "<p class='incorrect'>Question 2 : Incorrect ✗ - La réponse correcte était : Dijkstra</p>";
+      }
+      document.getElementById("correction2").style.display = "block";
+      
+      // Question 3
+      if (question3[0].checked == true && question3[1].checked == false && question3[2].checked == true){
+        score += 1;
+        correctionsHtml += "<p class='correct'>Question 3 : Correct ✓</p>";
+      } else {
+        correctionsHtml += "<p class='incorrect'>Question 3 : Incorrect ✗ - Les formats d'images sont JPEG et PNG</p>";
+      }
+      document.getElementById("correction3").style.display = "block";
+      
+      // Question 4
+      if (question4 == "select"){
+        score += 1;
+        correctionsHtml += "<p class='correct'>Question 4 : Correct ✓</p>";
+      } else {
+        correctionsHtml += "<p class='incorrect'>Question 4 : Incorrect ✗ - La commande est SELECT</p>";
+      }
+      document.getElementById("correction4").style.display = "block";
+      
+      // Question 5
+      if (question5_1 == "1" && question5_2 == "n-1"){
+        score += 1;
+        correctionsHtml += "<p class='correct'>Question 5 : Correct ✓</p>";
+      } else {
+        correctionsHtml += "<p class='incorrect'>Question 5 : Incorrect ✗ - Les valeurs correctes sont '1' et 'n-1'</p>";
+      }
+      document.getElementById("correction5").style.display = "block";
+      
+      // Question 6
+      if (question6[0].checked == true && question6[1].checked == true && 
+          question6[2].checked == false && question6[3].checked == true){
+        score += 1;
+        correctionsHtml += "<p class='correct'>Question 6 : Correct ✓</p>";
+      } else {
+        correctionsHtml += "<p class='incorrect'>Question 6 : Incorrect ✗ - Les principes de POO sont l'encapsulation, l'héritage et le polymorphisme</p>";
+      }
+      document.getElementById("correction6").style.display = "block";
+      
+      // Question 7
+      if (question7 == "on2"){
+        score += 1;
+        correctionsHtml += "<p class='correct'>Question 7 : Correct ✓</p>";
+      } else {
+        correctionsHtml += "<p class='incorrect'>Question 7 : Incorrect ✗ - La complexité est O(n²)</p>";
+      }
+      document.getElementById("correction7").style.display = "block";
+      
+      // Question 8
+      if (question8.toLowerCase() == "http" || question8.toLowerCase() == "https"){
+        score += 1;
+        correctionsHtml += "<p class='correct'>Question 8 : Correct ✓</p>";
+      } else {
+        correctionsHtml += "<p class='incorrect'>Question 8 : Incorrect ✗ - La réponse correcte était HTTP</p>";
+      }
+      document.getElementById("correction8").style.display = "block";
+      
+      // On affiche les détails des corrections
+      document.getElementById("correction_details").innerHTML = correctionsHtml;
+      
+      // On actualise l'appréciation et on stylise le résultat
+      var resultsDiv = document.getElementById("results");
+      
+      if (score < 3){
+        appreciation.textContent = "Décevant. Vous devriez réviser davantage.";
+        resultsDiv.className = "bad-score";
+      }
+      else if (score < 6){
+        appreciation.textContent = "Acceptable. Continuez vos efforts.";
+        resultsDiv.className = "average-score";
+      }
+      else {
+        appreciation.textContent = "Bravo. Excellente maîtrise du sujet !";
+        resultsDiv.className = "good-score";
+      }
+      
+      nombre_justes.textContent = "Vous avez " + score + " réponses correctes sur 8." ;
+    }
+  </script>
+</body>
+</html>

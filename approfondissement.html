@@ -1,1 +1,363 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz NSI - Version Approfondie</title>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+    
+    h1, h2 {
+      text-align: center;
+      color: #1a237e;
+      margin-bottom: 20px;
+    }
+    
+    .container {
+      background-color: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+    
+    .section-title {
+      border-bottom: 2px solid #3f51b5;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      color: #303f9f;
+    }
+    
+    button {
+      background-color: #3f51b5;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px 5px;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    
+    button:hover {
+      background-color: #303f9f;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    input[type="radio"], input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    
+    input[type="text"], input[type="number"] {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-top: 5px;
+      width: 250px;
+      font-size: 16px;
+    }
+    
+    .question {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .question p {
+      font-weight: 600;
+      color: #1a237e;
+    }
+    
+    #results, #negResults {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      transition: all 0.5s;
+    }
+    
+    .good-score {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      border-left: 4px solid #2e7d32;
+    }
+    
+    .average-score {
+      background-color: #fff8e1;
+      color: #ff8f00;
+      border-left: 4px solid #ff8f00;
+    }
+    
+    .bad-score {
+      background-color: #ffebee;
+      color: #c62828;
+      border-left: 4px solid #c62828;
+    }
+    
+    .correct {
+      color: #2e7d32;
+      font-weight: bold;
+    }
+    
+    .incorrect {
+      color: #c62828;
+      font-weight: bold;
+    }
+    
+    #dynamicText {
+      padding: 15px;
+      background-color: #e8eaf6;
+      border-radius: 5px;
+      margin: 20px 0;
+      font-style: italic;
+      text-align: center;
+      transition: all 0.5s;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quiz NSI - Version Approfondie</h1>
+  
+  <!-- Texte dynamique -->
+  <div class="container">
+    <h2 class="section-title">Concept aléatoire en NSI</h2>
+    <div id="dynamicText">Cliquez sur le bouton pour afficher un concept informatique</div>
+    <button onclick="changerTexte()">Afficher un concept</button>
+  </div>
+  
+  <!-- Quiz avec nombres aléatoires -->
+  <div class="container">
+    <h2 class="section-title">Conversions binaires aléatoires</h2>
+    <div id="randomQuiz">
+      <div class="question">
+        <p id="enonce">Cliquez sur le bouton pour générer une question</p>
+        <input id="saisie" type="number">
+        <button onclick="verifierConversion()">Vérifier</button>
+        <button onclick="nouvelleQuestion()">Nouvelle question</button>
+        <p id="bilan">En attente d'une réponse.</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Quiz avec points négatifs -->
+  <div class="container">
+    <h2 class="section-title">Quiz avec barème négatif</h2>
+    <form name="negativeQuiz" id="negativeQuiz">
+      <!-- Question 1 -->
+      <div class="question">
+        <p>1. Quelle est la méthode pour trier un tableau en place avec une complexité moyenne de O(n log n) ?</p>
+        <input name="neg_question1" type="radio" value="bubble">Tri à bulles<br>
+        <input name="neg_question1" type="radio" value="quick">Tri rapide (Quick Sort)<br>
+        <input name="neg_question1" type="radio" value="insertion">Tri par insertion<br>
+        <input name="neg_question1" type="radio" value="selection">Tri par sélection<br>
+      </div>
+      
+      <!-- Question 2 -->
+      <div class="question">
+        <p>2. Lequel des suivants n'est pas un langage de programmation ?</p>
+        <input name="neg_question2" type="radio" value="ruby">Ruby<br>
+        <input name="neg_question2" type="radio" value="swift">Swift<br>
+        <input name="neg_question2" type="radio" value="docker">Docker<br>
+      </div>
+      
+      <!-- Question 3 -->
+      <div class="question">
+        <p>3. Quelle architecture matérielle est utilisée dans la plupart des ordinateurs modernes ?</p>
+        <input name="neg_question3" type="radio" value="von_neumann">Architecture de von Neumann<br>
+        <input name="neg_question3" type="radio" value="harvard">Architecture de Harvard<br>
+        <input name="neg_question3" type="radio" value="quantum">Architecture quantique<br>
+        <input name="neg_question3" type="radio" value="neural">Architecture neuronale<br>
+      </div>
+      
+      <!-- Question 4 -->
+      <div class="question">
+        <p>4. Quel protocole est utilisé pour le transfert sécurisé de fichiers ?</p>
+        <input name="neg_question4" type="radio" value="http">HTTP<br>
+        <input name="neg_question4" type="radio" value="ftp">FTP<br>
+        <input name="neg_question4" type="radio" value="sftp">SFTP<br>
+      </div>
+    </form>
+    
+    <button onclick="verifierNegatif()">Vérifier avec barème négatif</button>
+    <div id="negResults">
+      <p id="negAppreciation">...</p>
+      <p id="negScore">...</p>
+      <div id="negCorrection"></div>
+    </div>
+  </div>
+  
+  <script>
+    // Variables pour le quiz aléatoire
+    var nombreBinaire = "";
+    var nombreDecimal = 0;
+    var typeConversion = "";
+    
+    // Concepts NSI pour le texte dynamique
+    var concepts = [
+      "Les algorithmes de tri ont différentes complexités temporelles : le tri à bulles est en O(n²), le tri rapide en O(n log n) en moyenne.",
+      "Le paradigme orienté objet repose sur l'encapsulation, l'héritage et le polymorphisme.",
+      "Les bases de données relationnelles utilisent SQL pour manipuler les données avec les opérations CRUD (Create, Read, Update, Delete).",
+      "Le modèle TCP/IP est composé de 4 couches : Accès réseau, Internet, Transport et Application.",
+      "La récursivité est une technique où une fonction s'appelle elle-même pour résoudre un problème.",
+      "Les structures de données comme les listes chaînées, les arbres et les graphes permettent d'organiser les données de manière efficace.",
+      "La programmation fonctionnelle est un paradigme qui traite le calcul comme l'évaluation de fonctions mathématiques.",
+      "Les algorithmes de recherche comme la recherche binaire ont une complexité logarithmique sur des données triées."
+    ];
+    
+    // Fonction pour changer le texte dynamique
+    function changerTexte() {
+      var texteAleatoire = concepts[Math.floor(Math.random() * concepts.length)];
+      document.getElementById("dynamicText").innerHTML = texteAleatoire;
+      document.getElementById("dynamicText").style.backgroundColor = getRandomLightColor();
+    }
+    
+    // Fonction pour générer une couleur claire aléatoire
+    function getRandomLightColor() {
+      var r = 200 + Math.floor(Math.random() * 55);
+      var g = 200 + Math.floor(Math.random() * 55);
+      var b = 200 + Math.floor(Math.random() * 55);
+      return "rgb(" + r + "," + g + "," + b + ")";
+    }
+    
+    // Fonction pour générer une nouvelle question de conversion
+    function nouvelleQuestion() {
+      // Détermine aléatoirement le type de conversion
+      var typeIndex = Math.floor(Math.random() * 2);
+      
+      if (typeIndex === 0) {
+        // Conversion décimal vers binaire
+        nombreDecimal = 1 + Math.floor(Math.random() * 255);
+        nombreBinaire = nombreDecimal.toString(2);
+        typeConversion = "dec2bin";
+        document.getElementById("enonce").textContent = "Convertissez le nombre décimal " + nombreDecimal + " en binaire.";
+      } else {
+        // Conversion binaire vers décimal
+        nombreDecimal = 1 + Math.floor(Math.random() * 255);
+        nombreBinaire = nombreDecimal.toString(2);
+        typeConversion = "bin2dec";
+        document.getElementById("enonce").textContent = "Convertissez le nombre binaire " + nombreBinaire + " en décimal.";
+      }
+      
+      // Réinitialiser l'entrée et le bilan
+      document.getElementById("saisie").value = "";
+      document.getElementById("bilan").textContent = "En attente d'une réponse.";
+    }
+    
+    // Fonction pour vérifier la conversion
+    function verifierConversion() {
+      var reponse = document.getElementById("saisie").value.trim();
+      var message = "";
+      var correct = false;
+      
+      if (typeConversion === "dec2bin") {
+        // Vérifie si la réponse est le binaire correct
+        correct = reponse === nombreBinaire;
+        message = correct ? 
+          "Bravo ! " + nombreDecimal + " en binaire est bien " + nombreBinaire + "." : 
+          "Incorrect. " + nombreDecimal + " en binaire est " + nombreBinaire + ".";
+      } else {
+        // Vérifie si la réponse est le décimal correct
+        correct = parseInt(reponse) === nombreDecimal;
+        message = correct ? 
+          "Bravo ! " + nombreBinaire + " en décimal est bien " + nombreDecimal + "." : 
+          "Incorrect. " + nombreBinaire + " en décimal est " + nombreDecimal + ".";
+      }
+      
+      // Affiche le résultat
+      document.getElementById("bilan").textContent = message;
+      document.getElementById("bilan").className = correct ? "correct" : "incorrect";
+    }
+    
+    // Fonction pour vérifier le quiz avec barème négatif
+    function verifierNegatif() {
+      var score = 0;
+      var correctionsHtml = "<h3>Détails des réponses :</h3>";
+      
+      // Question 1 (4 choix -> pénalité de 0.33)
+      var q1 = document.querySelector('input[name="neg_question1"]:checked');
+      if (q1) {
+        if (q1.value === "quick") {
+          score += 1;
+          correctionsHtml += "<p class='correct'>Question 1 : Correct (+1 point) ✓</p>";
+        } else {
+          score -= 0.33;
+          correctionsHtml += "<p class='incorrect'>Question 1 : Incorrect (-0.33 point) ✗ - La réponse était : Tri rapide</p>";
+        }
+      }
+      
+      // Question 2 (3 choix -> pénalité de 0.5)
+      var q2 = document.querySelector('input[name="neg_question2"]:checked');
+      if (q2) {
+        if (q2.value === "docker") {
+          score += 1;
+          correctionsHtml += "<p class='correct'>Question 2 : Correct (+1 point) ✓</p>";
+        } else {
+          score -= 0.5;
+          correctionsHtml += "<p class='incorrect'>Question 2 : Incorrect (-0.5 point) ✗ - La réponse était : Docker</p>";
+        }
+      }
+      
+      // Question 3 (4 choix -> pénalité de 0.33)
+      var q3 = document.querySelector('input[name="neg_question3"]:checked');
+      if (q3) {
+        if (q3.value === "von_neumann") {
+          score += 1;
+          correctionsHtml += "<p class='correct'>Question 3 : Correct (+1 point) ✓</p>";
+        } else {
+          score -= 0.33;
+          correctionsHtml += "<p class='incorrect'>Question 3 : Incorrect (-0.33 point) ✗ - La réponse était : Architecture de von Neumann</p>";
+        }
+      }
+      
+      // Question 4 (3 choix -> pénalité de 0.5)
+      var q4 = document.querySelector('input[name="neg_question4"]:checked');
+      if (q4) {
+        if (q4.value === "sftp") {
+          score += 1;
+          correctionsHtml += "<p class='correct'>Question 4 : Correct (+1 point) ✓</p>";
+        } else {
+          score -= 0.5;
+          correctionsHtml += "<p class='incorrect'>Question 4 : Incorrect (-0.5 point) ✗ - La réponse était : SFTP</p>";
+        }
+      }
+      
+      // Ramener le score à 0 s'il est négatif
+      if (score < 0) score = 0;
+      
+      // Arrondir le score à 2 décimales
+      score = Math.round(score * 100) / 100;
+      
+      // Afficher le résultat
+      var resultsDiv = document.getElementById("negResults");
+      
+      if (score < 1.5){
+        document.getElementById("negAppreciation").textContent = "Décevant. Vous devriez réviser davantage.";
+        resultsDiv.className = "bad-score";
+      }
+      else if (score < 3){
+        document.getElementById("negAppreciation").textContent = "Acceptable. Continuez vos efforts.";
+        resultsDiv.className = "average-score";
+      }
+      else {
+        document.getElementById("negAppreciation").textContent = "Bravo. Excellente maîtrise du sujet !";
+        resultsDiv.className = "good-score";
+      }
+      
+      document.getElementById("negScore").textContent = "Score : " + score + " sur 4";
+      document.getElementById("negCorrection").innerHTML = correctionsHtml;
+    }
+    
+    // Initialiser la première question
+    nouvelleQuestion();
+  </script>
+</body>
+</html>

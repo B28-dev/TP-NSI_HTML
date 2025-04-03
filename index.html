@@ -1,12 +1,130 @@
-<h1>TP-NSI HTML</h1>
-<h3>Groupe :</h3>
-<ul>
-  <li>PIEKIELKO MAteusz</li>
-  <li>BARRE Enzo</li>
-</ul>
-<hr>
-<h3>Liens</h3>
-<ul>
-  <li>
-<a href="basique.html">Basique</a></li>
-</ul>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Projet Quiz NSI</title>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+    
+    h1, h2, h3 {
+      color: #1a237e;
+    }
+    
+    h1 {
+      text-align: center;
+      border-bottom: 2px solid #3f51b5;
+      padding-bottom: 15px;
+    }
+    
+    .container {
+      background-color: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+    
+    .members {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    
+    .member {
+      background-color: #e8eaf6;
+      padding: 15px;
+      border-radius: 10px;
+      width: 45%;
+      margin-bottom: 20px;
+    }
+    
+    .links {
+      display: flex;
+      justify-content: space-around;
+      margin: 30px 0;
+    }
+    
+    .link-button {
+      display: inline-block;
+      background-color: #3f51b5;
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      transition: all 0.3s;
+      text-align: center;
+      width: 200px;
+    }
+    
+    .link-button:hover {
+      background-color: #303f9f;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contribution {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Projet Quiz NSI</h1>
+    
+    <div class="members">
+      <div class="member">
+        <h2>Membre 1</h2>
+        <p>Prénom: Pierre</p>
+        <p>Contribution: 50%</p>
+      </div>
+      <div class="member">
+        <h2>Membre 2</h2>
+        <p>Prénom: Paul</p>
+        <p>Contribution: 50%</p>
+      </div>
+    </div>
+    
+    <h3>Versions du Quiz</h3>
+    <div class="links">
+      <a href="basique.html" class="link-button">Version Basique</a>
+      <a href="sophistique.html" class="link-button">Version Sophistiquée</a>
+      <a href="approfondissement.html" class="link-button">Version Approfondie</a>
+    </div>
+    
+    <div class="contribution">
+      <h3>Contributions et Démarche</h3>
+      
+      <h4>Pierre (50%)</h4>
+      <p>J'ai principalement travaillé sur :</p>
+      <ul>
+        <li>La structure HTML des différentes pages</li>
+        <li>La création du système de score</li>
+        <li>La formulation des questions liées aux algorithmes et structures de données</li>
+        <li>La fonctionnalité des nombres aléatoires dans la version approfondie</li>
+      </ul>
+      <p>Les défis que j'ai rencontrés étaient principalement liés à la gestion des questions à choix multiples dans JavaScript. J'ai résolu ce problème en utilisant les propriétés checked des éléments input pour vérifier plusieurs réponses.</p>
+      
+      <h4>Paul (50%)</h4>
+      <p>J'ai principalement travaillé sur :</p>
+      <ul>
+        <li>Le design CSS des différentes versions du quiz</li>
+        <li>L'implémentation des fonctionnalités avancées (indices, corrections)</li>
+        <li>La création du système de barème négatif</li>
+        <li>La formulation des questions liées aux réseaux et bases de données</li>
+      </ul>
+      <p>J'ai rencontré des difficultés avec l'affichage dynamique des corrections. La solution a été d'utiliser le DOM pour manipuler le style des éléments et ajouter du contenu HTML après la soumission du quiz.</p>
+    </div>
+  </div>
+</body>
+</html>
